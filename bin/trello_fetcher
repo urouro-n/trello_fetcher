@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "trello_fetcher"
+require "optparse"
+
+params = ARGV.getopts("", "key:", "token:")
+
+TrelloFetcher.fetch(params["key"], params["token"])
