@@ -5,4 +5,20 @@ require "optparse"
 
 params = ARGV.getopts("", "key:", "token:")
 
-TrelloFetcher.fetch(params["key"], params["token"])
+if ENV["TRELLO_DEVELOPER_PUBLIC_KEY"]
+  key = ENV["TRELLO_DEVELOPER_PUBLIC_KEY"]
+else
+  key = params["key"]
+end
+
+if ENV["TRELLO_MEMBER_TOKEN"]
+  token = ENV["TRELLO_MEMBER_TOKEN"]
+else
+  token = params["token"]
+end
+
+if key.nil? || token.nil?
+  puts "** Please input key and token **"
+else
+  TrelloFetcher.fetch(key, token)
+end
